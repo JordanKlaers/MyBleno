@@ -26,12 +26,7 @@ function SampleService() {
   SampleService.super_.call(this, {
     uuid: 'fffffffffffffffffffffffffffffff0',
     characteristics: [
-      new StaticReadOnlyCharacteristic(),
-      new DynamicReadOnlyCharacteristic(),
-      new LongDynamicReadOnlyCharacteristic(),
       new WriteOnlyCharacteristic(),
-      new NotifyOnlyCharacteristic(),
-      new IndicateOnlyCharacteristic()
     ]
   });
 }
