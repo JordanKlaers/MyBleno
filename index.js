@@ -19,7 +19,7 @@ WriteOnlyCharacteristic.prototype.onWriteRequest = function(data, offset, withou
   console.log(data);
   // var toHEX = data.toString('hex');
   // console.log(toHEX);
-  var converted = toHEX.toString('base64');;
+  var converted = data.toString('base64');;
   console.log(converted);
   console.log('WriteOnlyCharacteristic write request: ' + ' ' + offset + ' ' + withoutResponse);
 
