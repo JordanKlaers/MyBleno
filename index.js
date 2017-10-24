@@ -1,6 +1,8 @@
 var bleno = require('bleno');
 var util = require('util');
 var BlenoCharacteristic = bleno.Characteristic;
+var BlenoPrimaryService = bleno.PrimaryService;
+
 
 var WriteOnlyCharacteristic = function() {
   WriteOnlyCharacteristic.super_.call(this, {
