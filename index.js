@@ -16,7 +16,7 @@ var WriteOnlyCharacteristic = function() {
 util.inherits(WriteOnlyCharacteristic, BlenoCharacteristic);
 
 WriteOnlyCharacteristic.prototype.onWriteRequest = function(data, offset, withoutResponse, callback) {
-  console.log(data);
+  console.log(typeof data);
   // var toHEX = data.toString('hex');
   // console.log(toHEX);
   var converted = data.toString('base64');;
