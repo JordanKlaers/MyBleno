@@ -2,7 +2,7 @@ var bleno = require('bleno');
 var util = require('util');
 var BlenoCharacteristic = bleno.Characteristic;
 var BlenoPrimaryService = bleno.PrimaryService;
-var handleTheData = require("./recieveData.js");
+var recieveData = require("./recieveData.js");
 
 var WriteOnlyCharacteristic = function() {
   WriteOnlyCharacteristic.super_.call(this, {
@@ -19,7 +19,7 @@ WriteOnlyCharacteristic.prototype.onWriteRequest = function(data, offset, withou
   var b = new Buffer(converted, 'base64');
   var result = b.toString();
   console.log(result);
-  handleTheData(result);
+  recieveData.handleTheData(result);
   callback(this.RESULT_SUCCESS);
 };
 
