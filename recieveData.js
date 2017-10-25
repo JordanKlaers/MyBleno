@@ -1,5 +1,9 @@
 var handleTheData = (data) =>{
-  console.log(data);
+  console.log("Recieve data file :3 ----------------");
+  console.log(typeof data);
+  let number = Number(data)
+  console.log(typeof number);
+  console.log(number);
 }
 
 module.exports.handleTheData = handleTheData;

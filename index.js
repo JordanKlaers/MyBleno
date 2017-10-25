@@ -18,7 +18,7 @@ WriteOnlyCharacteristic.prototype.onWriteRequest = function(data, offset, withou
   var converted = data.toString('base64');
   var b = new Buffer(converted, 'base64');
   var result = b.toString();
-  console.log(result);
+  
   recieveData.handleTheData(result);
   callback(this.RESULT_SUCCESS);
 };
