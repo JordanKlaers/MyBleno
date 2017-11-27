@@ -18,7 +18,7 @@ WriteOnlyCharacteristic.prototype.onWriteRequest = function(data, offset, withou
   var converted = data.toString('base64');
   var b = new Buffer(converted, 'base64');
   var result = b.toString();
-  
+
   recieveData.handleTheData(result);
   callback(this.RESULT_SUCCESS);
 };
@@ -36,7 +36,7 @@ function SampleService() {
 util.inherits(SampleService, BlenoPrimaryService);
 
 bleno.on('stateChange', function(state) {
-  console.log('on -> stateChange: ' + state + ', address = ' + bleno.address);
+  console.log('_My bleno_: on -> stateChange: ' + state + ', address = ' + bleno.address);
 
   if (state === 'poweredOn') {
     bleno.startAdvertising('raspberrypi', ['fffffffffffffffffffffffffffffff0']);
@@ -47,26 +47,26 @@ bleno.on('stateChange', function(state) {
 
 // Linux only events /////////////////
 bleno.on('accept', function(clientAddress) {
-  console.log('on -> accept, client: ' + clientAddress);
+  console.log('_My bleno_: on -> accept, client: ' + clientAddress);
 
   bleno.updateRssi();
 });
 
 bleno.on('disconnect', function(clientAddress) {
-  console.log('on -> disconnect, client: ' + clientAddress);
+  console.log('_My bleno_: on -> disconnect, client: ' + clientAddress);
 });
 
 bleno.on('rssiUpdate', function(rssi) {
-  console.log('on -> rssiUpdate: ' + rssi);
+  console.log('_My bleno_: on -> rssiUpdate: ' + rssi);
 });
 //////////////////////////////////////
 
 bleno.on('mtuChange', function(mtu) {
-  console.log('on -> mtuChange: ' + mtu);
+  console.log('_My bleno_: on -> mtuChange: ' + mtu);
 });
 
 bleno.on('advertisingStart', function(error) {
-  console.log('on -> advertisingStart: ' + (error ? 'error ' + error : 'success'));
+  console.log('_My bleno_: on -> advertisingStart: ' + (error ? 'error ' + error : 'success'));
 
   if (!error) {
     bleno.setServices([
@@ -76,9 +76,9 @@ bleno.on('advertisingStart', function(error) {
 });
 
 bleno.on('advertisingStop', function() {
-  console.log('on -> advertisingStop');
+  console.log('_My bleno_: on -> advertisingStop');
 });
 
 bleno.on('servicesSet', function(error) {
-  console.log('on -> servicesSet: ' + (error ? 'error ' + error : 'success'));
+  console.log('_My bleno_: on -> servicesSet: ' + (error ? 'error ' + error : 'success'));
 });
