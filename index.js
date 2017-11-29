@@ -6,7 +6,7 @@ var recieveData = require("./recieveData.js");
 
 var WriteOnlyCharacteristic = function() {
   WriteOnlyCharacteristic.super_.call(this, {
-    uuid: 'fffffffffffffffffffffffffffffff4',
+    uuid: 'fffffffffffffffffffffffffffffff5',
     properties: ['write', 'writeWithoutResponse']
   });
 };
@@ -33,7 +33,7 @@ function SampleService() {
   });
 }
 
-util.inherits(SampleService, BlenoPrimaryService);
+// util.inherits(SampleService, BlenoPrimaryService);
 
 bleno.on('stateChange', function(state) {
   console.log('_My bleno_: on -> stateChange: ' + state + ', address = ' + bleno.address);
