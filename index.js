@@ -33,7 +33,7 @@ function SampleService() {
   });
 }
 
-// util.inherits(SampleService, BlenoPrimaryService);
+util.inherits(SampleService, BlenoPrimaryService);
 
 bleno.on('stateChange', function(state) {
   console.log('_My bleno_: on -> stateChange: ' + state + ', address = ' + bleno.address);
