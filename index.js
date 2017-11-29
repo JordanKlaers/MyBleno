@@ -26,7 +26,7 @@ WriteOnlyCharacteristic.prototype.onWriteRequest = function(data, offset, withou
 
 function SampleService() {
   SampleService.super_.call(this, {
-    uuid: 'fffffffffffffffffffffffffffffff0',
+    uuid: '00112233-4455-6677-8899-aabbccddeeff',
     characteristics: [
       new WriteOnlyCharacteristic(),
     ]
