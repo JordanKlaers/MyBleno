@@ -5,6 +5,7 @@ var BlenoPrimaryService = bleno.PrimaryService;
 var recieveData = require("./recieveData.js");
 
 console.log("util: ", util);
+console.log("bleno primary service: ", BlenoPrimaryService);
 
 var WriteOnlyCharacteristic = function() {
   WriteOnlyCharacteristic.super_.call(this, {
@@ -81,7 +82,7 @@ bleno.on('advertisingStop', function() {
   console.log('_My bleno_: on -> advertisingStop');
 });
 
-bleno.on('servicesSet', function(error, services) {
-  console.log('serviecs: ', services);
+bleno.on('servicesSet', function(error) {
+
   console.log('_My bleno_: on -> servicesSet: ' + (error ? 'error ' + error : 'success'));
 });
