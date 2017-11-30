@@ -6,6 +6,8 @@ var recieveData = require("./recieveData.js");
 
 console.log("util: ", util.log);
 
+util.log()
+
 var WriteOnlyCharacteristic = function() {
   WriteOnlyCharacteristic.super_.call(this, {
     uuid: 'fffffffffffffffffffffffffffffff5',
