@@ -4,7 +4,7 @@ var BlenoCharacteristic = bleno.Characteristic;
 var BlenoPrimaryService = bleno.PrimaryService;
 var recieveData = require("./recieveData.js");
 
-console.log("util: ", util);
+console.log("util: ", util.log);
 
 var WriteOnlyCharacteristic = function() {
   WriteOnlyCharacteristic.super_.call(this, {
