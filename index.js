@@ -4,6 +4,8 @@ var BlenoCharacteristic = bleno.Characteristic;
 var BlenoPrimaryService = bleno.PrimaryService;
 var recieveData = require("./recieveData.js");
 
+console.log("util: ", util);
+
 var WriteOnlyCharacteristic = function() {
   WriteOnlyCharacteristic.super_.call(this, {
     uuid: 'fffffffffffffffffffffffffffffff5',
