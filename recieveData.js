@@ -35,7 +35,7 @@ var uploadRGBValues = (RGBValues) => {
 
 
 
-async function hslToRgb(h, s, l){
+function hslToRgb(h, s, l){
     var r, g, b;
 
     if(s == 0){
@@ -57,7 +57,7 @@ async function hslToRgb(h, s, l){
         b = hue2rgb(p, q, h - 1/3);
     }
 
-    await return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+  return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
 }
 
 module.exports.handleTheData = handleTheData;
