@@ -2,27 +2,32 @@
 
 
 var Gpio = require('pigpio').Gpio,
-led = new Gpio(17, {mode: Gpio.OUTPUT})
+green = new Gpio(17, {mode: Gpio.OUTPUT})
 // led = new Gpio(17, {mode: Gpio.OUTPUT}),
 // led = new Gpio(17, {mode: Gpio.OUTPUT}),
 
-  led.pwmWrite(150);
+  green.pwmWrite(150);
 
 
 var handleTheData = (data) =>{
   var number = Number(data)
   number = Math.floor(number);
-  console.log(typeof number);
-  console.log(number);
-  led.pwmWrite(number);
+
   convertValue(number);
 }
 
 
 
 var convertValue = (value) => {
-  var rgbColor = hslToRgb(value, 100, 50)
+  var rgbColor = hslToRgb(value, 1, 0.5)
   console.log("should be rgb: ", rgbColor);
+}
+
+var uploadRGBValues = (RGBValues) => {
+  console.log("RGB: ",RGBValues);
+  red.pwmWrite(RGBValues[0]);
+  green.pwmWrite(RGBValues[1]);
+  blue.pwmWrite(RGBValues[2]);
 }
 
 
