@@ -3,8 +3,8 @@
 
 var Gpio = require('pigpio').Gpio,
 green = new Gpio(17, {mode: Gpio.OUTPUT})
-// led = new Gpio(17, {mode: Gpio.OUTPUT}),
-// led = new Gpio(17, {mode: Gpio.OUTPUT}),
+red = new Gpio(27, {mode: Gpio.OUTPUT}),
+blue = new Gpio(22, {mode: Gpio.OUTPUT}),
 
   green.pwmWrite(150);
 
