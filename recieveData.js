@@ -12,7 +12,7 @@ var blue = new Gpio(22, {mode: Gpio.OUTPUT})
 var handleTheData = (data) =>{
   var number = Number(data)
   number = Math.floor(number);
-
+  console.log("number coming in: ", number);
   convertValue(number);
 }
 
