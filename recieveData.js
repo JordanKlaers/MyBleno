@@ -1,3 +1,6 @@
+'use strict';
+
+
 var Gpio = require('pigpio').Gpio,
 led = new Gpio(17, {mode: Gpio.OUTPUT})
 // led = new Gpio(17, {mode: Gpio.OUTPUT}),
