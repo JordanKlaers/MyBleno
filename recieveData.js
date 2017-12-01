@@ -14,7 +14,7 @@ var handleTheData = (data) =>{
   number = Math.floor(number);
   console.log(typeof number);
   console.log(number);
-  led.pwmWrite(number);/
+  led.pwmWrite(number);
   convertValue(number);
 }
 
