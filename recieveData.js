@@ -21,6 +21,7 @@ var handleTheData = (data) =>{
 var convertValue = (value) => {
   var rgbColor = hslToRgb(value, 1, 0.5)
   console.log("should be rgb: ", rgbColor);
+  uploadRGBValues(rgbColor)
 }
 
 var uploadRGBValues = (RGBValues) => {
