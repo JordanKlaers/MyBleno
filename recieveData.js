@@ -20,7 +20,7 @@ var handleTheData = (data) =>{
 
 var convertValue = (value) => {
   console.log("inside covert value: ", value);
-  var rgbColor = hslToRgb(value, 1, 0.5)
+  var rgbColor = hslToRgb((value/360), 1, 0.5)
   console.log("should be rgb: ", rgbColor);
   uploadRGBValues(rgbColor)
 }
