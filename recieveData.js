@@ -19,6 +19,7 @@ var handleTheData = (data) =>{
 
 
 var convertValue = (value) => {
+  console.log("inside covert value: ", value);
   var rgbColor = hslToRgb(value, 1, 0.5)
   console.log("should be rgb: ", rgbColor);
   uploadRGBValues(rgbColor)
@@ -34,7 +35,7 @@ var uploadRGBValues = (RGBValues) => {
 
 
 
-function hslToRgb(h, s, l){
+async function hslToRgb(h, s, l){
     var r, g, b;
 
     if(s == 0){
@@ -56,7 +57,7 @@ function hslToRgb(h, s, l){
         b = hue2rgb(p, q, h - 1/3);
     }
 
-    return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+    await return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
 }
 
 module.exports.handleTheData = handleTheData;
