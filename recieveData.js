@@ -11,8 +11,9 @@ led = new Gpio(17, {mode: Gpio.OUTPUT})
 
 var handleTheData = (data) =>{
   var number = Number(data)
-  led.pwmWrite(number);
+  console.log(typeof number);
   console.log(number);
+  led.pwmWrite(number);
 }
 
 module.exports.handleTheData = handleTheData;
