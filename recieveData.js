@@ -18,16 +18,15 @@ var handleTheData = (data) =>{
 	}
   var number = Number(data)
   number = Math.floor(number);
-  console.log("number coming in: ", number);
   convertValue(number);
 }
 
 var invert = false
 
 var convertValue = (value) => {
-  console.log("inside covert value: ", value);
+//   console.log("inside covert value: ", value);
   var rgbColor = hslToRgb((value/360), 1, 0.5)
-  console.log("should be rgb: ", rgbColor);
+//   console.log("should be rgb: ", rgbColor);
   redValue = rgbColor[0]
   greenValue = rgbColor[1]
   blueValue = rgbColor[2]
@@ -44,7 +43,10 @@ var uploadRGBValues = () => {
 		greenValue = Math.abs(greenValue - 255);
 		blueValue = Math.abs(blueValue - 255);
 	  }
-	  console.log('updating color');
+	  console.log('updating color', invert);
+	  console.log('red: ', redValue);
+	  console.log('green: ', greenValue);
+	  console.log('blue: ', blueValue);
   	red.pwmWrite(redValue);
   	green.pwmWrite(greenValue);
   	blue.pwmWrite(blueValue);
