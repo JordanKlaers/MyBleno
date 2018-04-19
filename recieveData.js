@@ -11,6 +11,7 @@ var blue = new Gpio(22, {mode: Gpio.OUTPUT})
 
 var handleTheData = (data) =>{
 	if (data == 'invert') {
+		console.log('invert');
 		invert = !invert;
 		uploadRGBValues();
 		return;
