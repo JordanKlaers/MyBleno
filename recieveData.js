@@ -12,9 +12,9 @@ var blue = new Gpio(22, {mode: Gpio.OUTPUT})
 var handleTheData = (data) =>{
 	if (data == 'invert') {
 		console.log('invert');
-		invertFunction().then(() => {
-			uploadRGBValues();
-		});
+		invertFunction()
+		uploadRGBValues();
+		
 		return;
 	}
   var number = Number(data)
@@ -39,6 +39,11 @@ var convertValue = (value) => {
   redValue = rgbColor[0]
   greenValue = rgbColor[1]
   blueValue = rgbColor[2]
+  if (invert) {
+	redValue = Math.abs(redValue - 255);
+	greenValue = Math.abs(greenValue - 255);
+	blueValue = Math.abs(blueValue - 255);
+  }
   uploadRGBValues()
 }
 
@@ -51,11 +56,6 @@ var uploadRGBValues = () => {
 	console.log('red: ', redValue);
 	console.log('green: ', greenValue);
 	console.log('blue: ', blueValue);
-	if (invert) {
-		redValue = Math.abs(redValue - 255);
-		greenValue = Math.abs(greenValue - 255);
-		blueValue = Math.abs(blueValue - 255);
-	  }
   	red.pwmWrite(redValue);
   	green.pwmWrite(greenValue);
   	blue.pwmWrite(blueValue);
