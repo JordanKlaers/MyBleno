@@ -34,7 +34,7 @@ var convertValue = (value) => {
   uploadRGBValues()
 }
 
-var redValue = 0;
+var redValue = 255;
 var greenValue = 0;
 var blueValue  = 0;
 
@@ -43,7 +43,8 @@ var uploadRGBValues = () => {
 		redValue = Math.abs(redValue - 255);
 		greenValue = Math.abs(greenValue - 255);
 		blueValue = Math.abs(blueValue - 255);
-  	}
+	  }
+	  console.log('updating color');
   	red.pwmWrite(redValue);
   	green.pwmWrite(greenValue);
   	blue.pwmWrite(blueValue);
