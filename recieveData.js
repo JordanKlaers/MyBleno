@@ -10,13 +10,17 @@ var blue = new Gpio(22, {mode: Gpio.OUTPUT})
 
 
 var handleTheData = (data) =>{
+	if (data == 'invert') {
+		invert = !invert;
+		return;
+	}
   var number = Number(data)
   number = Math.floor(number);
   console.log("number coming in: ", number);
   convertValue(number);
 }
 
-
+var invert = false
 
 var convertValue = (value) => {
   console.log("inside covert value: ", value);
@@ -25,11 +29,16 @@ var convertValue = (value) => {
   uploadRGBValues(rgbColor)
 }
 
-var uploadRGBValues = (RGBValues) => {
-  console.log("RGB: ",RGBValues);
-  red.pwmWrite(RGBValues[0]);
-  green.pwmWrite(RGBValues[1]);
-  blue.pwmWrite(RGBValues[2]);
+var uploadRGBValues = (RGBValues, invert = invert) => {
+  	console.log("RGB: ",RGBValues);
+  	if (invert) {
+		RGBValues[0] = Math.abs(RGBValues[0] - 255);
+		RGBValues[1] = Math.abs(RGBValues[1] - 255);
+		RGBValues[2] = Math.abs(RGBValues[2] - 255);
+  	}
+  	red.pwmWrite(RGBValues[0]);
+  	green.pwmWrite(RGBValues[1]);
+  	blue.pwmWrite(RGBValues[2]);
 }
 
 
