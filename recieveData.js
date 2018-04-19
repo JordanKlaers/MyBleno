@@ -26,19 +26,25 @@ var convertValue = (value) => {
   console.log("inside covert value: ", value);
   var rgbColor = hslToRgb((value/360), 1, 0.5)
   console.log("should be rgb: ", rgbColor);
-  uploadRGBValues(rgbColor)
+  redValue = rgbColor[0]
+  greenValue = rgbColor[1]
+  blueValue = rgbColor[2]
+  uploadRGBValues()
 }
 
-var uploadRGBValues = (RGBValues) => {
-  	console.log("RGB: ",RGBValues);
+var redValue = 0;
+var greenValue = 0;
+var bluValuee  = 0;
+
+var uploadRGBValues = () => {
   	if (invert) {
-		RGBValues[0] = Math.abs(RGBValues[0] - 255);
-		RGBValues[1] = Math.abs(RGBValues[1] - 255);
-		RGBValues[2] = Math.abs(RGBValues[2] - 255);
+		redValue = Math.abs(redValue - 255);
+		greenValue = Math.abs(greenValue - 255);
+		blueValue = Math.abs(blueValue - 255);
   	}
-  	red.pwmWrite(RGBValues[0]);
-  	green.pwmWrite(RGBValues[1]);
-  	blue.pwmWrite(RGBValues[2]);
+  	red.pwmWrite(redValue);
+  	green.pwmWrite(greenValue);
+  	blue.pwmWrite(blueValue);
 }
 
 
