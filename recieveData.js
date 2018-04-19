@@ -29,7 +29,7 @@ var convertValue = (value) => {
   uploadRGBValues(rgbColor)
 }
 
-var uploadRGBValues = (RGBValues, invert = invert) => {
+var uploadRGBValues = (RGBValues) => {
   	console.log("RGB: ",RGBValues);
   	if (invert) {
 		RGBValues[0] = Math.abs(RGBValues[0] - 255);
