@@ -12,6 +12,7 @@ var blue = new Gpio(22, {mode: Gpio.OUTPUT})
 var handleTheData = (data) =>{
 	if (data == 'invert') {
 		invert = !invert;
+		uploadRGBValues();
 		return;
 	}
   var number = Number(data)
@@ -34,7 +35,7 @@ var convertValue = (value) => {
 
 var redValue = 0;
 var greenValue = 0;
-var bluValuee  = 0;
+var blueValue  = 0;
 
 var uploadRGBValues = () => {
   	if (invert) {
