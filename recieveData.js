@@ -117,7 +117,7 @@ var boardReady = false;
 
 
 
-pixel = require("node-pixel");
+var pixel = require("node-pixel");
 var firmata = require('firmata');
 
 var board = new firmata.Board("../dev/mmcblk0p1",function(){
