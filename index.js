@@ -9,7 +9,7 @@ var pixel = require("node-pixel");
 var firmata = require('firmata');
 
 var board = new firmata.Board("../dev/mmcblk0p1",function(){
-
+console.log('made board');
     strip = new pixel.Strip({
         pin: 6, // this is still supported as a shorthand
         length: 144,
@@ -19,6 +19,7 @@ var board = new firmata.Board("../dev/mmcblk0p1",function(){
     });
 
     strip.on("ready", function() {
+		console.log('strip ready');
 		boardReady = true;
 		// do stuff with the strip here.
 		// var n = 0;
