@@ -138,7 +138,7 @@ var board = new firmata.Board("../dev/mmcblk0p1",function(){
 			
 		// 	strip.pixel(n).off()
 		// 	if (n+1 == 144) {
-		// 		strip.pixel(0).color("rgb(0,5,0)");
+				strip.pixel(2).color("rgb(0,5,0)");
 		// 		n = 0
 		// 	} else {
 		// 		strip.pixel(n+1).color("rgb(5,0,0)");
