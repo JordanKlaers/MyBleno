@@ -17,10 +17,31 @@ var handleTheData = (data) =>{
 		
 		return;
 	}
-  var number = Number(data)
-  number = Math.floor(number);
-  convertValue(number);
+	else if (data.indexOf('led:') > -1 && boardReady) {
+		console.log('got digital led data: ', data, "and board status is  true");
+		digitalLED(data)
+	}
+	else {
+		var number = Number(data)
+  		number = Math.floor(number);
+  		convertValue(number);
+	}
+  
 }
+
+
+var digitalLED = (data) => {
+	var index = parseInt(data.split(":")[1])
+	strip.pixel(index).color("rgb(0,30,0)");
+	strip.show();
+}
+
+
+
+
+
+
+
 
 var invert = false
 
@@ -88,5 +109,50 @@ function hslToRgb(h, s, l){
 
   return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
 }
+
+
+
+
+var boardReady = false;
+
+
+
+pixel = require("node-pixel");
+var firmata = require('firmata');
+
+var board = new firmata.Board("../dev/mmcblk0p1",function(){
+
+    strip = new pixel.Strip({
+        pin: 6, // this is still supported as a shorthand
+        length: 144,
+        firmata: board,
+        controller: "FIRMATA",
+
+    });
+
+    strip.on("ready", function() {
+		boardReady = true;
+		// do stuff with the strip here.
+		// var n = 0;
+		// setInterval(()=>{
+			
+		// 	strip.pixel(n).off()
+		// 	if (n+1 == 144) {
+		// 		strip.pixel(0).color("rgb(0,5,0)");
+		// 		n = 0
+		// 	} else {
+		// 		strip.pixel(n+1).color("rgb(5,0,0)");
+		// 		n = n+1;
+		// 	}
+			
+		// 	// strip.pixel(0).off();
+		// 	// strip.shift(1, pixel.FORWARD, true);
+		// 	// strip.pixel(0).color; // will now be nothing
+		// 	// strip.pixel(1).color;
+		// 	strip.show();
+		// }, 200)
+		
+    });
+});
 
 module.exports.handleTheData = handleTheData;
