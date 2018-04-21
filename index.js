@@ -3,7 +3,7 @@ var util = require('util');
 var BlenoCharacteristic = bleno.Characteristic;
 var BlenoPrimaryService = bleno.PrimaryService;
 var recieveData = require("./recieveData.js");
-
+var five = require("johnny-five");
 
 var pixel = require("node-pixel");
 var firmata = require('firmata');
