@@ -8,7 +8,7 @@ var recieveData = require("./recieveData.js");
 var pixel = require("node-pixel");
 var firmata = require('firmata');
 
-var board = new firmata.Board("../dev/mmcblk0p1",function(){
+var board = new firmata.Board("/dev/mmcblk0p1",function(){
 console.log('made board');
     strip = new pixel.Strip({
         pin: 6, // this is still supported as a shorthand
