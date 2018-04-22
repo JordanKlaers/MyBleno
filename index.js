@@ -59,15 +59,20 @@ var WriteOnlyCharacteristic = function() {
 
 
 util.inherits(WriteOnlyCharacteristic, BlenoCharacteristic);
-
+var busy = false;
 WriteOnlyCharacteristic.prototype.onWriteRequest = function(data, offset, withoutResponse, callback) {
-  	var converted = data.toString('base64');
-  	var b = new Buffer(converted, 'base64');
-  	var result = b.toString();
-	var expectation = recieveData.handleTheData(result, LEDObject);
-	Promise.resolve(expectation).then(()=> {
-		callback(this.RESULT_SUCCESS);
-	})
+	if (!busy) {
+		busy = true;
+		var converted = data.toString('base64');
+		var b = new Buffer(converted, 'base64');
+		var result = b.toString();
+		var expectation = recieveData.handleTheData(result, LEDObject);
+		Promise.resolve(expectation).then(()=> {
+			busy = false;
+			callback(this.RESULT_SUCCESS);
+		})	
+	}  
+	
 };
 
 
