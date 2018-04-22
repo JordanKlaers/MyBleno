@@ -30,16 +30,18 @@ var handleTheData = (data, LEDObject) =>{
 }
 
 
-var digitalLED = (data, LEDObject) => {
+async function digitalLED(data, LEDObject) {
 	console.log('led strip update');
 	var index = parseInt(data.split(":")[1])
-	LEDObject.strip.off()
-	LEDObject.strip.show()
-	setTimeout(() => {
+	var update = () => {
+		LEDObject.strip.off()
+		LEDObject.strip.show()
+		
 		LEDObject.strip.pixel(index).color("rgb(0,50,0)");
 		LEDObject.strip.show();
-	}, 20)
-	
+		
+	}
+	await update();
 }
 
 
