@@ -20,7 +20,7 @@ console.log('made board: ');
         firmata: board,
         controller: "FIRMATA"
     });
-
+	console.log('strip: ', strip);
     strip.on("ready", function() {
 		console.log('strip ready');
 		boardReady = true;
