@@ -54,7 +54,7 @@ var digitalLED = (data, LEDObject) => {
 			LEDObject.strip.show();	
 			lastLED = index;
 		}
-	
+		return "done";
 }
 
 
