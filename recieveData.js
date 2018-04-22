@@ -34,8 +34,11 @@ var digitalLED = (data, LEDObject) => {
 	var index = parseInt(data.split(":")[1])
 	LEDObject.strip.off()
 	LEDObject.strip.show()
-	LEDObject.strip.pixel(index).color("rgb(0,50,0)");
-	LEDObject.strip.show();
+	setTimeout(() => {
+		LEDObject.strip.pixel(index).color("rgb(0,50,0)");
+		LEDObject.strip.show();
+	}, 20)
+	
 }
 
 
