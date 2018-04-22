@@ -21,10 +21,10 @@ var handleTheData = (data, LEDObject) =>{
 		console.log('got digital led data: ', data, "and board status is  true");
 		if (!busy) {
 			busy = true;
-			var execute = digitalLED(data, LEDObject).then(()=>{
-				busy = false
+			var expectation = digitalLED(data, LEDObject);
+			Promise.resolve(expectation).then(()=> {
+				busy = false;
 			})
-			Promise.resolve(execute)
 		}
 		
 	}
