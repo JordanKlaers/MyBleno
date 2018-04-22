@@ -1,3 +1,4 @@
+'use strict';
 var bleno = require('bleno');
 var util = require('util');
 var BlenoCharacteristic = bleno.Characteristic;
