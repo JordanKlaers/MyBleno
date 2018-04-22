@@ -3,51 +3,47 @@ var util = require('util');
 var BlenoCharacteristic = bleno.Characteristic;
 var BlenoPrimaryService = bleno.PrimaryService;
 var recieveData = require("./recieveData.js");
-// var five = require("johnny-five");
-
 var pixel = require("node-pixel");
-var firmata = require('firmata');
-// var board = new five.Board({
-// 	io: new raspi(),
-//   });
-var board = new firmata.Board("~/../../dev/mmcblk0p1", function(){
-	// board.on('ready', function(){
-console.log('made board: ');
-    strip = new pixel.Strip({
-        pin: 6, // this is still supported as a shorthand
-        length: 144,
-        firmata: board,
-        controller: "FIRMATA"
+var five = require("johnny-five");
+var Raspi = require("raspi-io");
+
+var LEDObject = {
+	connected: false,
+	strip: null
+};
+
+
+var board = new five.Board({
+  io: new Raspi()
+});
+console.log('board made');
+board.on("ready", function() {
+	console.log('board on');
+    var strip = new pixel.Strip({
+        board: this,
+        controller: "I2CBACKPACK",
+        strips: [144] // 3 physical strips on pins 0, 1 & 2 with lengths 4, 6 & 8.
     });
-	console.log('strip: ', strip);
     strip.on("ready", function() {
-		console.log('strip ready');
-		boardReady = true;
-		// do stuff with the strip here.
-		// var n = 0;
-		// setInterval(()=>{
-			
-		// 	strip.pixel(n).off()
-		// 	if (n+1 == 144) {
-				strip.pixel(2).color("rgb(0,5,0)");
-		// 		n = 0
-		// 	} else {
-		// 		strip.pixel(n+1).color("rgb(5,0,0)");
-		// 		n = n+1;
-		// 	}
-			
-		// 	// strip.pixel(0).off();
-		// 	// strip.shift(1, pixel.FORWARD, true);
-		// 	// strip.pixel(0).color; // will now be nothing
-		// 	// strip.pixel(1).color;
-		// 	strip.show();
-		// }, 200)
+		LEDObject.connected = true;
+		LEDObject.strip = strip;
+		strip.off();
+		console.log('strip is on');
 		
+		// strip.show();
+		// let index = 0;
+		// setInterval(()=> {
+		// 	strip.pixel(index).color("rgb(0,50,0)");
+		// 	strip.show();
+		// 	if (index == 143) {
+		// 		index = 0;
+		// 	} else {
+		// 		index ++;
+		// 	}
+		// }, 10)
+	
     });
 });
-
-
-
 
 
 
@@ -69,7 +65,7 @@ WriteOnlyCharacteristic.prototype.onWriteRequest = function(data, offset, withou
   	var b = new Buffer(converted, 'base64');
   	var result = b.toString();
 
-  	recieveData.handleTheData(result);
+  	recieveData.handleTheData(result, LEDObject);
   	callback(this.RESULT_SUCCESS);
 };
 
