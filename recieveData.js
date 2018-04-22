@@ -31,6 +31,7 @@ var handleTheData = (data, LEDObject) =>{
 
 
 var digitalLED = (data, LEDObject) => {
+	console.log('led strip update');
 	var index = parseInt(data.split(":")[1])
 	LEDObject.strip.off()
 	LEDObject.strip.show()
