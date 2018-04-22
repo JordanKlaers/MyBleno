@@ -64,9 +64,10 @@ WriteOnlyCharacteristic.prototype.onWriteRequest = function(data, offset, withou
   	var converted = data.toString('base64');
   	var b = new Buffer(converted, 'base64');
   	var result = b.toString();
-
-  	recieveData.handleTheData(result, LEDObject);
-  	callback(this.RESULT_SUCCESS);
+	var expectation = recieveData.handleTheData(result, LEDObject);
+	Promise.resolve(expectation).then(()=> {
+		callback(this.RESULT_SUCCESS);
+	})
 };
 
 
