@@ -15,7 +15,7 @@ var board = new firmata.Board("~/../../dev/mmcblk0p1", function(){
 	// board.on('ready', function(){
 console.log('made board: ', board);
     strip = new pixel.Strip({
-        pin: 6, // this is still supported as a shorthand
+        pin: 0, // this is still supported as a shorthand
         length: 144,
         firmata: board,
         controller: "FIRMATA",
