@@ -11,7 +11,7 @@ var firmata = require('firmata');
 // var board = new five.Board({
 // 	io: new raspi(),
 //   });
-var board = new firmata.Board("/dev/mmcblk0p2", function(){
+var board = new firmata.Board("/dev/mmcblk0p1", function(){
 	// board.on('ready', function(){
 console.log('made board');
     strip = new pixel.Strip({
