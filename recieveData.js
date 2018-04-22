@@ -29,16 +29,25 @@ var handleTheData = (data, LEDObject) =>{
   
 }
 
-
+var lastLED;
 var digitalLED = (data, LEDObject) => {
 	console.log('led strip update');
 	var index = parseInt(data.split(":")[1])
 	
 	// LEDObject.strip.off()
 	// LEDObject.strip.show()
-		
-	LEDObject.strip.pixel(index).color("rgb(0,50,0)");
-	LEDObject.strip.show();	
+		if (!lastLED) {
+			lastLED = index;
+			LEDObject.strip.pixel(index).color("rgb(0,50,0)");
+			LEDObject.strip.show();	
+		}
+		else {
+			LEDObject.strip.pixel(lastLED).off()
+			LEDObject.strip.pixel(index).color("rgb(0,50,0)");
+			LEDObject.strip.show();	
+			lastLED = index;
+		}
+	
 }
 
 
