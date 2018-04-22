@@ -8,7 +8,7 @@ var blue = new Gpio(22, {mode: Gpio.OUTPUT})
 
   green.pwmWrite(150);
 
-
+var busy = false;
 var handleTheData = (data, LEDObject) =>{
 	if (data == 'invert') {
 		console.log('invert');
@@ -19,7 +19,13 @@ var handleTheData = (data, LEDObject) =>{
 	}
 	else if (data.indexOf('led:') > -1 && LEDObject.connected) {
 		console.log('got digital led data: ', data, "and board status is  true");
-		digitalLED(data, LEDObject)
+		if (!busy) {
+			busy = true;
+			digitalLED(data, LEDObject).then(()=>{
+				busy = false
+			})
+		}
+		
 	}
 	else {
 		var number = Number(data)
