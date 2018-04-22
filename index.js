@@ -4,13 +4,13 @@ var util = require('util');
 var BlenoCharacteristic = bleno.Characteristic;
 var BlenoPrimaryService = bleno.PrimaryService;
 var recieveData = require("./recieveData.js");
-var five = require("johnny-five");
+// var five = require("johnny-five");
 
 var pixel = require("node-pixel");
 var firmata = require('firmata');
-var board = new five.Board({
-	io: new raspi(),
-  });
+// var board = new five.Board({
+// 	io: new raspi(),
+//   });
 var board = new firmata.Board("/dev/mmcblk0p2", function(){
 	// board.on('ready', function(){
 console.log('made board');
