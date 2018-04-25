@@ -91,8 +91,8 @@ var digitalLedFunction = (data, LEDObject, passedCallIndex) => {
 }
 
 var lastLED;
-var digitalLED = (data, LEDObject, passedCallIndex, currentCallIndex = callIndex) => {
-	if (passedCallIndex != currentCallIndex) {
+var digitalLED = (data, LEDObject, passedCallIndex) => {
+	if (passedCallIndex != callIndex) {
 		return;
 	}
 	var index = parseInt(data.split(":")[1])
