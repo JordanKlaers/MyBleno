@@ -60,20 +60,56 @@ var WriteOnlyCharacteristic = function() {
 
 util.inherits(WriteOnlyCharacteristic, BlenoCharacteristic);
 var busy = false;
+var callIndex = 0;
 WriteOnlyCharacteristic.prototype.onWriteRequest = function(data, offset, withoutResponse, callback) {
-	if (!busy) {
-		busy = true;
+	callIndex ++;
+	// if (!busy) {
+		// busy = true;
 		var converted = data.toString('base64');
 		var b = new Buffer(converted, 'base64');
 		var result = b.toString();
-		var expectation = recieveData.handleTheData(result, LEDObject);
+		var expectation = recieveData.handleTheData(result, LEDObject, callIndex);
 		Promise.resolve(expectation).then(()=> {
 			busy = false;
 			callback(this.RESULT_SUCCESS);
 		})	
-	}  
-	
+	 
 };
+
+var busy = false;
+var digitalLedFunction = (data, LEDObject, passedCallIndex) => {
+	if (data.indexOf('led:') > -1 && LEDObject.connected) {
+		console.log('got digital led data: ', data, "and board status is  true");
+		if (!busy) {
+			busy = true;
+			var expectation = digitalLED(data, LEDObject, passedCallIndex);
+			Promise.resolve(expectation).then(()=> {
+				busy = false;
+		})
+	}
+}
+
+var lastLED;
+var digitalLED = (data, LEDObject, passedCallIndex, currentCallIndex = callIndex) => {
+	if (passedCallIndex != currentCallIndex) {
+		return;
+	}
+	var index = parseInt(data.split(":")[1])
+	if (!lastLED) {
+		lastLED = index;
+		LEDObject.strip.pixel(index).color("rgb(0,50,0)");
+		LEDObject.strip.show();	
+	}
+	else {
+		LEDObject.strip.pixel(lastLED).off()
+		LEDObject.strip.pixel(index).color("rgb(0,50,0)");
+		LEDObject.strip.show();	
+		lastLED = index;
+	}
+	return "done";
+}
+
+
 
 
 function SampleService() {
