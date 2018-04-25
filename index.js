@@ -85,7 +85,8 @@ var digitalLedFunction = (data, LEDObject, passedCallIndex) => {
 			var expectation = digitalLED(data, LEDObject, passedCallIndex);
 			Promise.resolve(expectation).then(()=> {
 				busy = false;
-		})
+			})
+		}
 	}
 }
 
