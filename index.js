@@ -92,23 +92,35 @@ var digitalLedFunction = (data, LEDObject, passedCallIndex) => {
 
 var lastLED;
 var digitalLED = (data, LEDObject, passedCallIndex) => {
-	if (passedCallIndex != callIndex) {
-		return;
-	}
+	// if (passedCallIndex != callIndex) {
+	// 	return;
+	// }
 	var index = parseInt(data.split(":")[1])
 	if (!lastLED) {
-		lastLED = index;
-		LEDObject.strip.pixel(index).color("rgb(0,50,0)");
-		LEDObject.strip.show();	
+		try {
+			lastLED = index;
+			LEDObject.strip.pixel(index).color("rgb(0,50,0)");
+			LEDObject.strip.show();	
+		}
+		catch(error) {
+			console.log("my error: ", error);
+		}
 	}
 	else {
-		LEDObject.strip.pixel(lastLED).off()
-		LEDObject.strip.pixel(index).color("rgb(0,50,0)");
-		LEDObject.strip.show();	
-		lastLED = index;
+		try {
+			LEDObject.strip.pixel(lastLED).off()
+			LEDObject.strip.pixel(index).color("rgb(0,50,0)");
+			LEDObject.strip.show();	
+			lastLED = index;
+		}
+		catch(error) {
+			console.log("my error: ", error);
+		}
 	}
 	return "done";
 }
+
+
 
 
 
