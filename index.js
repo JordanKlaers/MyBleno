@@ -74,7 +74,7 @@ var digitalLedFunction = (data, LEDObject, passedCallIndex) => {
 	}
 }
 
-var lastLED;
+var lastLED = null;
 var digitalLED = (data, LEDObject, passedCallIndex) => {
 	if (passedCallIndex != callIndex) {
 		console.log('dodged a failure');
@@ -82,7 +82,7 @@ var digitalLED = (data, LEDObject, passedCallIndex) => {
 	}
 	console.log(passedCallIndex, callIndex);
 	var index = parseInt(data.split(":")[1])
-	if (!lastLED) {
+	if (lastLED == null) {
 		try {
 			lastLED = index;
 			LEDObject.strip.pixel(index).color("rgb(0,50,0)");
