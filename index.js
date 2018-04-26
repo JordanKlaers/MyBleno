@@ -80,6 +80,7 @@ var digitalLED = (data, LEDObject, passedCallIndex) => {
 		console.log('dodged a failure');
 		return;
 	}
+	console.log(passedCallIndex, callIndex);
 	var index = parseInt(data.split(":")[1])
 	if (!lastLED) {
 		try {
