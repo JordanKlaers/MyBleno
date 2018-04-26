@@ -53,7 +53,7 @@ WriteOnlyCharacteristic.prototype.onWriteRequest = function(data, offset, withou
 		var converted = data.toString('base64');
 		var b = new Buffer(converted, 'base64');
 		var result = b.toString();
-		var expectation = recieveData.handleTheData(result, LEDObject, callIndex);
+		var expectation = recieveData.digitalLedFunction(result, LEDObject, callIndex);
 		Promise.resolve(expectation).then(()=> {
 			busy = false;
 			callback(this.RESULT_SUCCESS);
