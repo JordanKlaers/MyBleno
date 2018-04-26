@@ -32,7 +32,7 @@ board.on("ready", function() {
 });
 
 board.on("error", function(err) {
-	console.log('board error', err);
+	console.log('board error: POOP');
 })
 
 var WriteOnlyCharacteristic = function() {
@@ -77,6 +77,7 @@ var digitalLedFunction = (data, LEDObject, passedCallIndex) => {
 var lastLED;
 var digitalLED = (data, LEDObject, passedCallIndex) => {
 	if (passedCallIndex != callIndex) {
+		console.log('dodged a failure');
 		return;
 	}
 	var index = parseInt(data.split(":")[1])
