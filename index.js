@@ -16,9 +16,8 @@ var LEDObject = {
 var board = new five.Board({
   io: new Raspi()
 });
-console.log('board made');
+
 board.on("ready", function() {
-	console.log('board on');
     var strip = new pixel.Strip({
         board: this,
         controller: "I2CBACKPACK",
@@ -29,26 +28,12 @@ board.on("ready", function() {
 		LEDObject.strip = strip;
 		strip.off();
 		console.log('strip is on');
-		
-		// strip.show();
-		// let index = 0;
-		// setInterval(()=> {
-		// 	strip.pixel(index).color("rgb(0,50,0)");
-		// 	strip.show();
-		// 	if (index == 143) {
-		// 		index = 0;
-		// 	} else {
-		// 		index ++;
-		// 	}
-		// }, 10)
-	
     });
 });
 
-
-
-
-console.log("util: ", util);
+board.on("error", function(err) {
+	console.log('board error', err);
+})
 
 var WriteOnlyCharacteristic = function() {
   	WriteOnlyCharacteristic.super_.call(this, {
@@ -79,7 +64,6 @@ WriteOnlyCharacteristic.prototype.onWriteRequest = function(data, offset, withou
 var busy = false;
 var digitalLedFunction = (data, LEDObject, passedCallIndex) => {
 	if (data.indexOf('led:') > -1 && LEDObject.connected) {
-		console.log('got digital led data: ', data, "and board status is  true");
 		if (!busy) {
 			busy = true;
 			var expectation = digitalLED(data, LEDObject, passedCallIndex);
