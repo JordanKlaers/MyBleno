@@ -91,20 +91,24 @@ function load() {
 				moreToShow = true;
 			}
 			else {
-				// LEDObject.strip.pixel(i).off()
+				promiseQueue.push(LEDObject.strip.pixel(i).off());
 				stripQueue[i] = undefined;
 			}
 		}
 	}
 	Promise.all(promiseQueue).then(function() {
 		LEDObject.strip.show();
+		let wait = setTimeout(() => {
+			if (!moreToShow) {
+				queueIsEmpty = true;
+			}
+			else {
+				load()
+			}		
+		}, 30);
+		Promise.resolve(wait);
 	})
-	if (!moreToShow) {
-		queueIsEmpty = true;
-	}
-	else {
-		load()
-	}
+	
 	
 }
 
