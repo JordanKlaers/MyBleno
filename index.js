@@ -86,7 +86,8 @@ function load() {
 			if (stripQueue[i].length >= 1) { //if there is at least one value left for an led show it
 				console.log('did we get to writing the first led?');
 				let value = `rgb(0,${stripQueue[i].shift()},0)`
-				LEDObject.strip.pixel(i).color(value);	
+				LEDObject.strip.pixel(i).color(value);
+				LEDObject.strip.pixel(9).color(value);	
 				moreToShow = true;
 			}
 			else {
