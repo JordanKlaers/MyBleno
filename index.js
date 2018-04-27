@@ -4,6 +4,7 @@ var BlenoCharacteristic = bleno.Characteristic;
 var BlenoPrimaryService = bleno.PrimaryService;
 var recieveData = require("./recieveData.js");
 const boardUtil = require("./board.js");
+const command = require("./commands.js");
 var pixel = require("node-pixel");
 var five = require("johnny-five");
 var Raspi = require("raspi-io");
