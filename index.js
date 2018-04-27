@@ -29,10 +29,8 @@ board.on("ready", function() {
 		strip.off();
 		console.log('strip is on');
 	});
-	LEDObject = {
-		connected: true,
-		strip: strip
-	}
+	LEDObject.connected = true;
+	LEDObject.strip = strip;
 });
 board.on("error", function(err) {
 	console.log('board error: POOP');
