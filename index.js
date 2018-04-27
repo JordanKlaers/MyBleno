@@ -72,33 +72,36 @@ function fadePattern(data, LEDObject) {
 		const index = parseInt(data.split(":")[1])
 		stripQueue[index] = [2,4,6,8,13,20,30,50,70,70,50,30,20,13,8,6,4,2]
 		if (queueIsEmpty) {
-			load(LEDObject)
+			load()
 		}
 	}
 }
 
-function load(LEDObject) {
+function load() {
 	queueIsEmpty = false;
-	while(!queueIsEmpty) {
-		let moreToShow = false;
-		for (let i = 0; i < stripQueue.length; i++) {
-			if (stripQueue[i] !== undefined) {
-				if (stripQueue[i].length >= 1) { //if there is at least one value left for an led show it
-					console.log('did we get to writing the first led?');
-					LEDObject.strip.pixel(i).color(`rgb(0,${stripQueue[i].shift()},0)`);	
-					moreToShow = true;
-				}
-				else {
-					LEDObject.strip.pixel(i).off()
-					stripQueue[i] = undefined;
-				}
+	let moreToShow = false;
+	for (let i = 0; i < stripQueue.length; i++) {
+		if (stripQueue[i] !== undefined) {
+			if (stripQueue[i].length >= 1) { //if there is at least one value left for an led show it
+				console.log('did we get to writing the first led?');
+				let value = `rgb(0,${stripQueue[i].shift()},0)`
+				LEDObject.strip.pixel(i).color(value);	
+				moreToShow = true;
+			}
+			else {
+				LEDObject.strip.pixel(i).off()
+				stripQueue[i] = undefined;
 			}
 		}
-		LEDObject.strip.show();
-		if (!moreToShow) {
-			queueIsEmpty = true;
-		}
 	}
+	LEDObject.strip.show();
+	if (!moreToShow) {
+		queueIsEmpty = true;
+	}
+	else {
+		load()
+	}
+	
 }
 
 
