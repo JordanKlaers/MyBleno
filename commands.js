@@ -47,6 +47,6 @@ function getFrame() {
 	}
 }
 
-module.exports.commands = {
+module.exports = {
 	fadePattern
 };

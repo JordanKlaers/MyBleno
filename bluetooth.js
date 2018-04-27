@@ -15,7 +15,7 @@ function writeRequest(data, offset, withoutResponse, callback, LEDObject) {
 	})	 
 }
 
-module.exports.bluetooth = {
+module.exports = {
 	writeCharacteristic,
 	writeRequest
 };

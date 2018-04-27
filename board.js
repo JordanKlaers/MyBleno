@@ -22,6 +22,6 @@ function ready(that) {
 	}
 }
 
-module.exports.board = {
+module.exports = {
 	ready
 }
