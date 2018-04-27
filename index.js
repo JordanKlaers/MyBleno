@@ -70,7 +70,8 @@ var queueIsEmpty = true;
 function fadePattern(data, LEDObject) {
 	if (data.indexOf('led:') > -1 && LEDObject.connected) {
 		const index = parseInt(data.split(":")[1])
-		stripQueue[index] = [2,4,6,8,13,20,30,50,70,70,50,30,20,13,8,6,4,2]
+		stripQueue[index] = [50] 
+		// [2,4,6,8,13,20,30,50,70,70,50,30,20,13,8,6,4,2]
 		if (queueIsEmpty) {
 			load()
 		}
@@ -89,7 +90,7 @@ function load() {
 				moreToShow = true;
 			}
 			else {
-				LEDObject.strip.pixel(i).off()
+				// LEDObject.strip.pixel(i).off()
 				stripQueue[i] = undefined;
 			}
 		}
