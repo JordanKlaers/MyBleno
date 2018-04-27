@@ -17,7 +17,7 @@ const board = new five.Board({
   io: new Raspi()
 });
 
-board.on("ready", () => {
+board.on("ready", function() {
 	var strip = new pixel.Strip({
         board: this,
         controller: "I2CBACKPACK",
