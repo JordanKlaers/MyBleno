@@ -6,7 +6,7 @@ const LEDObject = {
 
 function ready(that) {
 	var strip = new pixel.Strip({
-        board: that,
+        board: this,
         controller: "I2CBACKPACK",
         strips: [144] // 3 physical strips on pins 0, 1 & 2 with lengths 4, 6 & 8.
     });

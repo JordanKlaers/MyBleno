@@ -16,10 +16,23 @@ const LEDObject = {
 const board = new five.Board({
   io: new Raspi()
 });
-const that = this;
 
-board.on("ready", (that) => {
-	LEDObject = boardUtil.ready(this);
+board.on("ready", () => {
+	var strip = new pixel.Strip({
+        board: this,
+        controller: "I2CBACKPACK",
+        strips: [144] // 3 physical strips on pins 0, 1 & 2 with lengths 4, 6 & 8.
+    });
+    strip.on("ready", function() {
+		LEDObject.connected = true;
+		LEDObject.strip = strip;
+		strip.off();
+		console.log('strip is on');
+	});
+	LEDObject = {
+		connected: true,
+		strip: strip
+	}
 });
 board.on("error", function(err) {
 	console.log('board error: POOP');
