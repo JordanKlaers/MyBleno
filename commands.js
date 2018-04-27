@@ -34,19 +34,6 @@ function load(LEDObject) {
 	}
 }
 
-function getFrame() {
-	var frame = [];
-	for (let i = 0; i < queue.length; i++) {
-		if (queue[i].pattern.length > 0) {
-			frame.push({
-				queueIndex: i
-				ledIndex: queue[i].led,
-				value: queue.shift();
-			})
-		}
-	}
-}
-
 module.exports = {
 	fadePattern
 };
