@@ -19,7 +19,7 @@ const board = new five.Board({
 const that = this;
 
 board.on("ready", (that) => {
-	LEDObject = boardUtil.ready(that);
+	LEDObject = boardUtil.ready(this);
 });
 board.on("error", function(err) {
 	console.log('board error: POOP');
