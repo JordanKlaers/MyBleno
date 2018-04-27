@@ -81,13 +81,14 @@ function fadePattern(data, LEDObject) {
 function load() {
 	queueIsEmpty = false;
 	let moreToShow = false;
+	let promiseQueue = [];
 	for (let i = 0; i < stripQueue.length; i++) {
 		if (stripQueue[i] !== undefined) {
 			if (stripQueue[i].length >= 1) { //if there is at least one value left for an led show it
 				console.log('did we get to writing the first led?');
 				let value = `rgb(0,${stripQueue[i].shift()},0)`
-				LEDObject.strip.pixel(i).color(value);
-				LEDObject.strip.pixel(9).color(value);	
+				let color = LEDObject.strip.pixel(i).color(value);
+				promiseQueue.push(color)
 				moreToShow = true;
 			}
 			else {
@@ -96,7 +97,9 @@ function load() {
 			}
 		}
 	}
-	LEDObject.strip.show();
+	Promise.all(promiseQueue).then(function() {
+		LEDObject.strip.show();
+	})
 	if (!moreToShow) {
 		queueIsEmpty = true;
 	}
