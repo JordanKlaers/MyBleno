@@ -29,10 +29,11 @@ board.on("ready", function() {
 		LEDObject.strip = strip;
 		strip.off();
 		console.log('strip is on');
+		LEDObject.connected = true;
+		LEDObject.strip = strip;
 	});
-	LEDObject.connected = true;
-	LEDObject.strip = strip;
 });
+
 board.on("error", function(err) {
 	console.log('board error: POOP');
 })
@@ -98,7 +99,7 @@ function load() {
 	}
 	Promise.all(promiseQueue).then(function() {
 		LEDObject.strip.show();
-		let wait = setTimeout(() => {
+		let wait = setTimeout(function() {
 			if (!moreToShow) {
 				queueIsEmpty = true;
 			}
