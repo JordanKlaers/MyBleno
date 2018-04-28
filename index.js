@@ -105,15 +105,12 @@ function load() {
 	catch(err) {
 		console.log('try catch show error');
 	}
-	let wait = setTimeout(function() {
-		if (!moreToShow) {
-			queueIsEmpty = true;
-		}
-		else {
-			load()
-		}		
-	}, 30);
-	Promise.resolve(wait);
+	if (!moreToShow) {
+		queueIsEmpty = true;
+	}
+	else {
+		load()
+	}		
 }
 
 
