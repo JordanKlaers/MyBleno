@@ -89,7 +89,10 @@ function load() {
 			}
 		}
 	}
-	Promise.all(promiseQueue).then(function() {
+	Promise.all(promiseQueue).catch(function(err) {
+		console.log('promise error: ', err)
+		return promiseQueue;
+	}).then(function() {
 		LEDObject.strip.show();
 		let wait = setTimeout(function() {
 			if (!moreToShow) {
