@@ -44,67 +44,132 @@ var WriteOnlyCharacteristic = function() {
 
 
 util.inherits(WriteOnlyCharacteristic, BlenoCharacteristic);
-var busy = false;
-var callIndex = 0;
+
 WriteOnlyCharacteristic.prototype.onWriteRequest = function(data, offset, withoutResponse, callback) {
-	callIndex ++;
-	// if (!busy) {
-		// busy = true;
 		var converted = data.toString('base64');
 		var b = new Buffer(converted, 'base64');
 		var result = b.toString();
-		var expectation = digitalLedFunction(result, LEDObject, callIndex);
+		var expectation = fadePattern(result, LEDObject);
 		Promise.resolve(expectation).then(()=> {
-			busy = false;
 			callback(this.RESULT_SUCCESS);
-		})	
-	 
+		})
 };
 
-var busy = false;
-var digitalLedFunction = (data, LEDObject, passedCallIndex) => {
+
+
+var stripQueue = [];
+var queueIsEmpty = true;
+
+function fadePattern(data, LEDObject) {
 	if (data.indexOf('led:') > -1 && LEDObject.connected) {
-		if (!busy) {
-			busy = true;
-			var expectation = digitalLED(data, LEDObject, passedCallIndex);
-			Promise.resolve(expectation).then(()=> {
-				busy = false;
-			})
+		const index = parseInt(data.split(":")[1])
+		stripQueue[index] = [2,4,6,8,13,20,30,50,70,70,50,30,20,13,8,6,4,2]
+		if (queueIsEmpty) {
+			load()
 		}
 	}
 }
 
-var lastLED = null;
-var digitalLED = (data, LEDObject, passedCallIndex) => {
-	if (passedCallIndex != callIndex) {
-		console.log('dodged a failure');
-		return;
-	}
-	console.log(passedCallIndex, callIndex);
-	var index = parseInt(data.split(":")[1])
-	if (lastLED == null) {
-		try {
-			lastLED = index;
-			LEDObject.strip.pixel(index).color("rgb(0,50,0)");
-			LEDObject.strip.show();	
-		}
-		catch(error) {
-			console.log("my error: ", error);
-		}
-	}
-	else {
-		try {
-			LEDObject.strip.pixel(lastLED).off()
-			LEDObject.strip.pixel(index).color("rgb(0,50,0)");
-			LEDObject.strip.show();	
-			lastLED = index;
-		}
-		catch(error) {
-			console.log("my error: ", error);
+function load() {
+	queueIsEmpty = false;
+	let moreToShow = false;
+	let promiseQueue = [];
+	for (let i = 0; i < stripQueue.length; i++) {
+		if (stripQueue[i] !== undefined) {
+			if (stripQueue[i].length >= 1) { //if there is at least one value left for an led show it
+				console.log('did we get to writing the first led?');
+				let value = `rgb(0,${stripQueue[i].shift()},0)`
+				let color = LEDObject.strip.pixel(i).color(value);
+				promiseQueue.push(color)
+				moreToShow = true;
+			}
+			else {
+				promiseQueue.push(LEDObject.strip.pixel(i).off());
+				stripQueue[i] = undefined;
+			}
 		}
 	}
-	return "done";
+	Promise.all(promiseQueue).then(function() {
+		LEDObject.strip.show();
+		let wait = setTimeout(function() {
+			if (!moreToShow) {
+				queueIsEmpty = true;
+			}
+			else {
+				load()
+			}		
+		}, 30);
+		Promise.resolve(wait);
+	})
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// var busy = false;
+// var digitalLedFunction = (data, LEDObject, passedCallIndex) => {
+// 	if (data.indexOf('led:') > -1 && LEDObject.connected) {
+// 		if (!busy) {
+// 			busy = true;
+// 			var expectation = digitalLED(data, LEDObject, passedCallIndex);
+// 			Promise.resolve(expectation).then(()=> {
+// 				busy = false;
+// 			})
+// 		}
+// 	}
+// }
+
+// var lastLED = null;
+// var digitalLED = (data, LEDObject, passedCallIndex) => {
+// 	if (passedCallIndex != callIndex) {
+// 		console.log('dodged a failure');
+// 		return;
+// 	}
+// 	console.log(passedCallIndex, callIndex);
+// 	var index = parseInt(data.split(":")[1])
+// 	if (lastLED == null) {
+// 		try {
+// 			lastLED = index;
+// 			LEDObject.strip.pixel(index).color("rgb(0,50,0)");
+// 			LEDObject.strip.show();	
+// 		}
+// 		catch(error) {
+// 			console.log("my error: ", error);
+// 		}
+// 	}
+// 	else {
+// 		try {
+// 			LEDObject.strip.pixel(lastLED).off()
+// 			LEDObject.strip.pixel(index).color("rgb(0,50,0)");
+// 			LEDObject.strip.show();	
+// 			lastLED = index;
+// 		}
+// 		catch(error) {
+// 			console.log("my error: ", error);
+// 		}
+// 	}
+// 	return "done";
+// }
 
 
 
