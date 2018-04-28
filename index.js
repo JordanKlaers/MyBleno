@@ -73,37 +73,47 @@ function fadePattern(data, LEDObject) {
 function load() {
 	queueIsEmpty = false;
 	let moreToShow = false;
-	let promiseQueue = [];
 	for (let i = 0; i < stripQueue.length; i++) {
 		if (stripQueue[i] !== undefined) {
 			if (stripQueue[i].length >= 1) { //if there is at least one value left for an led show it
 				console.log('did we get to writing the first led?');
 				let value = `rgb(0,${stripQueue[i].shift()},0)`
-				let color = LEDObject.strip.pixel(i).color(value);
-				promiseQueue.push(color)
-				moreToShow = true;
+				try {
+					LEDObject.strip.pixel(i).color(value);
+				}
+				catch(err) {
+					console.log('try catch error');
+				}
+				if (!moreToShow) {
+					moreToShow = true;
+				}
 			}
 			else {
-				promiseQueue.push(LEDObject.strip.pixel(i).off());
+				try {
+					LEDObject.strip.pixel(i).off();
+				}
+				catch(err) {
+					console.log('try catch error');
+				}
 				stripQueue[i] = undefined;
 			}
 		}
 	}
-	Promise.all(promiseQueue).catch(function(err) {
-		console.log('promise error: ', err)
-		return promiseQueue;
-	}).then(function() {
+	try {
 		LEDObject.strip.show();
-		let wait = setTimeout(function() {
-			if (!moreToShow) {
-				queueIsEmpty = true;
-			}
-			else {
-				load()
-			}		
-		}, 30);
-		Promise.resolve(wait);
-	})
+	}
+	catch(err) {
+		console.log('try catch show error');
+	}
+	let wait = setTimeout(function() {
+		if (!moreToShow) {
+			queueIsEmpty = true;
+		}
+		else {
+			load()
+		}		
+	}, 30);
+	Promise.resolve(wait);
 }
 
 
